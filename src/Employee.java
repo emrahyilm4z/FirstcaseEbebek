@@ -1,7 +1,7 @@
 public class Employee {
 
     private final String name;
-    private int salary;
+    private double salary;
     private final int workHours;
     private final int hireYear;
 
@@ -17,7 +17,7 @@ public class Employee {
     }
 
     public int tax() {
-        this.tax = salary > 1000 ? salary * 3 / 100 : 0;
+        this.tax = salary > 1000 ? (int) (salary * 3 / 100) : 0;
         return tax;
     }
 
@@ -28,36 +28,35 @@ public class Employee {
 
     public void raiseSalary() {
         int currentYear = 2021;
-        this.salaryIncrease = salary;
         int totalWorkedYear = currentYear - hireYear;
-
-        salary += bonus() - tax();
+        tax();
+        bonus();
         if (totalWorkedYear < 10) {
-            salary += salary * 5 / 100;
+            salaryIncrease += salary * 5 / 100;
         } else if (totalWorkedYear > 9 && totalWorkedYear < 20) {
-            salary += salary * 10 / 100;
+            salaryIncrease += salary * 10 / 100;
         } else {
-            salary += salary * 15 / 100;
+            salaryIncrease += salary * 15 / 100;
         }
-        this.salaryIncrease = salary - salaryIncrease;
     }
 
     @Override
     public String toString() {
-        return "İsim= " + name +
-                "\nMaaş = " + (salary - salaryIncrease) +
-                "\nÇalışma saati = " + workHours +
-                "\nBaşlangıç yılı = " + hireYear +
-                "\nVergi = " + tax +
-                "\nBonus = " + bonus +
-                "\nMaaş artışı = " + salaryIncrease +
-                "\nVeri ve bonusla toplam maaş = " + salary;
+        return "İsim :  " + name +
+                "\nMaaş : " + salary +
+                "\nÇalışma saati : " + workHours +
+                "\nBaşlangıç yılı : " + hireYear +
+                "\nVergi : " + tax +
+                "\nBonus : " + bonus +
+                "\nMaaş artışı : " + salaryIncrease +
+                "\nVeri ve bonusla toplam maaş : " + ( salary + bonus  - tax) +
+                "\nToplam maaş : " + (salary + bonus - tax + salaryIncrease);
 
 
     }
 
     public static void main(String[] args) {
-        Employee employee = new Employee("Emrah Yilmaz", 10000, 80, 2011);
+        Employee employee = new Employee("Kemal", 2000, 45, 1985);
         employee.raiseSalary();
         System.out.println(employee.toString());
     }
